@@ -28,6 +28,8 @@ let sp = new ScanningProcess([{
     }, 
     duration: 500
 }]])
+
+sp.run();
 ```
 
 ## License
