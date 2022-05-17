@@ -8,8 +8,19 @@ ScanningProcess.prototype.run = function () {
     if (this.stage >= this.actions.length) return false;
     let action = this.actions[this.stage];
     let duration = action.duration ?? this.defaults.duration;
+    let onerrors = action.onerrors ?? this.defaults.onerrors;
     this.runner = setInterval(() => {
-        if (action.func()) {
+        let done;
+        try {
+            done = action.func();
+        } catch (error) {
+            if (onerrors) {
+                done = onerrors(this, action, error);
+            } else {
+                throw error;
+            }
+        }
+        if (done) {
             clearInterval(this.runner);
             this.stage += 1;
             this.run();
