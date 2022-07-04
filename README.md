@@ -60,7 +60,7 @@ let sp = new ScanningProcess([{
 });
 ```
 
-An `onerrors(sp, action, error)` function in an `action` will be used to react to errors that occur when the `action` is being executed. Returned value from `onerrors` is equivalent to the returned value from `action` .
+An `onerrors(sp, action, error)` function in an `action` will be used to react to errors that occur during the `action` 's execution. Returned value from `onerrors` is equivalent to the returned value from `action` .
 
 ```js
 let sp = new ScanningProcess([{
@@ -77,6 +77,34 @@ let sp = new ScanningProcess([{
     },
     duration: 100
 }]);
+```
+
+When an `action` returns `undefined` , the returned value will be changed to whatever `und` is set.
+
+```js
+let sp = new ScanningProcess([{
+    func: function() {
+        someButton.click();
+    }
+}, {
+    func: function() {
+        anotherButton.click();
+    }
+}], {
+    und: true
+});
+```
+
+You can directly provide a function in the `actions` array, it will be translated to `{ func: yourFunction }` .
+
+```js
+let sp = new ScanningProcess([
+    () => someButton.click(),
+    () => anotherButton.click(),
+    function() {
+        lastButton.click();
+    }
+]);
 ```
 
 ## License

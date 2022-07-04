@@ -18,6 +18,7 @@ ScanningProcess.prototype.run = function () {
     let action = this.actions[this.stage];
     let duration = action.duration ?? this.defaults.duration;
     let onerrors = action.onerrors ?? this.defaults.onerrors;
+    let und = action.und ?? this.defaults.und;
     this.runner = setInterval(() => {
         let done;
         try {
@@ -28,6 +29,9 @@ ScanningProcess.prototype.run = function () {
             } else {
                 throw error;
             }
+        }
+        if (typeof done === 'undefined') {
+            done = und;
         }
         if (done) {
             clearInterval(this.runner);
