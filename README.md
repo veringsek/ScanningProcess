@@ -104,7 +104,9 @@ let sp = new ScanningProcess([
     function() {
         lastButton.click();
     }
-]);
+], {
+    und: true
+});
 ```
 
 ## License
