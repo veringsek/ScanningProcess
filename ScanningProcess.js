@@ -1,5 +1,14 @@
 function ScanningProcess(actions, defaults = {}) {
-    this.actions = actions;
+    this.actions = [];
+    for (let action of actions) {
+        if (typeof action === 'function') {
+            this.actions.push({
+                func: action
+            });
+        } else {
+            this.actions.push(action);
+        }
+    }
     this.stage = 0;
     this.runner = null;
     this.defaults = defaults;
