@@ -10,7 +10,7 @@ After an `action` is done, `ScanningProcess` will start the next `action` , unti
 
 Return `true` when you think an `action` is done, and `false` if you think an `action` is not done yet. 
 
-`duration` is in milliseconds.
+`duration` is in milliseconds, default to 100ms.
 
 ```js
 let sp = new ScanningProcess([{

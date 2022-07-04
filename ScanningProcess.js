@@ -16,7 +16,7 @@ function ScanningProcess(actions, defaults = {}) {
 ScanningProcess.prototype.run = function () {
     if (this.stage >= this.actions.length) return false;
     let action = this.actions[this.stage];
-    let duration = action.duration ?? this.defaults.duration;
+    let duration = action.duration ?? this.defaults.duration ?? 100;
     let onerrors = action.onerrors ?? this.defaults.onerrors;
     let und = action.und ?? this.defaults.und;
     this.runner = setInterval(() => {
