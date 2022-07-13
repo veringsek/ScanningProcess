@@ -1,6 +1,6 @@
 # ScanningProcess
 
-`ScanningProcess` is used to simulate scanning procedure, in which codes are runned with a period, in a JavaScript environment. 
+`ScanningProcess` is used to simulate scanning procedure, in which codes are ran with a period, in a JavaScript environment. 
 
 When a `ScanningProcess` starts, it runs the first `action` , which is stored in its `ScanningProcess.actions` , by calling `action.func()` again and again, with a waiting period of `action.duration` , until the `action` is determined done when `action.func()` returns `true` . 
 

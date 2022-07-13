@@ -1,3 +1,8 @@
+/**
+ * ScanningProcess
+ * @param {[object|function]} actions Actions to execute when the ScanningProcess `start()`.
+ * @param {object} defaults Option values to use as default.
+ */
 function ScanningProcess(actions, defaults = {}) {
     this.actions = [];
     for (let action of actions) {
@@ -40,4 +45,13 @@ ScanningProcess.prototype.run = function () {
         }
     }, duration);
     return true;
+};
+ScanningProcess.prototype.start = function () {
+    this.run();
+};
+ScanningProcess.prototype.halt = function () {
+    clearInterval(this.runner);
+};
+ScanningProcess.prototype.stop = function () {
+    this.halt();
 };
