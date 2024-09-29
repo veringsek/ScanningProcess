@@ -19,7 +19,7 @@ function ScanningProcess(actions, defaults = {}) {
     this.runner = null;
     this.defaults = defaults;
 }
-ScanningProcess.prototype.run = function () {
+ScanningProcess.prototype.start = function () {
     if (this.stage >= this.actions.length) return false;
     let action = this.actions[this.stage];
     let duration = action.duration ?? this.defaults.duration ?? 100;
@@ -47,12 +47,6 @@ ScanningProcess.prototype.run = function () {
     }, duration);
     return true;
 };
-ScanningProcess.prototype.start = function () {
-    this.run();
-};
-ScanningProcess.prototype.halt = function () {
-    clearInterval(this.runner);
-};
 ScanningProcess.prototype.stop = function () {
-    this.halt();
+    clearInterval(this.runner);
 };
