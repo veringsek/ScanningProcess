@@ -1,6 +1,6 @@
 /**
  * ScanningProcess
- * @version 0.0.0
+ * @version 0.0.1
  * @param {[object|function]} actions Actions to execute when the ScanningProcess `start()`.
  * @param {object} defaults Option values to use as default.
  */
@@ -19,7 +19,7 @@ function ScanningProcess(actions, defaults = {}) {
     this.runner = null;
     this.defaults = defaults;
 }
-ScanningProcess.prototype.start = function () {
+ScanningProcess.prototype.run = function () {
     if (this.stage >= this.actions.length) return false;
     let action = this.actions[this.stage];
     let duration = action.duration ?? this.defaults.duration ?? 100;
@@ -47,6 +47,12 @@ ScanningProcess.prototype.start = function () {
     }, duration);
     return true;
 };
-ScanningProcess.prototype.stop = function () {
+ScanningProcess.prototype.start = function () {
+    this.run();
+};
+ScanningProcess.prototype.halt = function () {
     clearInterval(this.runner);
+};
+ScanningProcess.prototype.stop = function () {
+    this.halt();
 };
