@@ -1,6 +1,6 @@
 /**
  * ScanningProcess
- * @version 0.0.1
+ * @version 1.0.0
  * @param {[object|function]} actions Actions to execute when the ScanningProcess `start()`.
  * @param {object} defaults Option values to use as default.
  */
@@ -40,9 +40,9 @@ ScanningProcess.prototype.start = function () {
             done = und;
         }
         if (done) {
-            clearInterval(this.runner);
+            this.stop();
             this.stage += 1;
-            this.run();
+            this.start();
         }
     }, duration);
     return true;
