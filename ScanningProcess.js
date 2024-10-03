@@ -1,21 +1,22 @@
 /**
  * ScanningProcess
  * @version 1.0.0
- * @param {[object|function]} actions Actions to execute when the ScanningProcess `start()`.
+ * @param {[string]} schedule Names of actions to execute in order.
+ * @param {{object|function}} actions Actions to execute when the ScanningProcess `start()`.
  * @param {object} defaults Option values to use as default.
  */
-function ScanningProcess(actions, defaults = {}) {
-    this.actions = [];
-    for (let action of actions) {
+function ScanningProcess(schedule, actions, defaults = {}) {
+    this.schedule = schedule;
+    this.actions = actions;
+    for (let name in this.actions) {
+        let action = this.actions[name];
         if (typeof action === 'function') {
-            this.actions.push({
+            this.actions[name] = {
                 func: action
-            });
-        } else {
-            this.actions.push(action);
+            };
         }
     }
-    this.stage = 0;
+    this.stage = this.schedule[0];
     this.runner = null;
     this.defaults = defaults;
 }
