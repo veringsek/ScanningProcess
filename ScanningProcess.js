@@ -27,22 +27,26 @@ ScanningProcess.prototype.start = function () {
     let onerrors = action.onerrors ?? this.defaults.onerrors;
     let und = action.und ?? this.defaults.und;
     this.runner = setInterval(() => {
-        let done;
+        let next;
         try {
-            done = action.func();
+            next = action.func();
         } catch (error) {
             if (onerrors) {
-                done = onerrors(this, action, error);
+                next = onerrors(this, action, error);
             } else {
                 throw error;
             }
         }
-        if (typeof done === 'undefined') {
-            done = und;
+        if (typeof next === 'undefined') {
+            next = und;
         }
-        if (done) {
+        if (next) {
             this.stop();
-            this.stage += 1;
+            if (typeof next === 'string') {
+                this.stage = next;
+            } else {
+                this.stage += 1;
+            }
             this.start();
         }
     }, duration);
