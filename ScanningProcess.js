@@ -21,7 +21,7 @@ function ScanningProcess(schedule, actions, defaults = {}) {
     this.defaults = defaults;
 }
 ScanningProcess.prototype.start = function () {
-    if (this.stage === null) return false;
+    if (!(this.stage in this.actions)) return false;
     let action = this.actions[this.stage];
     let duration = action.duration ?? this.defaults.duration ?? 100;
     let onerrors = action.onerrors ?? this.defaults.onerrors;
