@@ -16,16 +16,21 @@ function ScanningProcess(schedule, actions, defaults = {}) {
             };
         }
     }
-    this.stage = this.schedule[0];
+    this.stage = 0;
     this.runner = null;
     this.defaults = defaults;
 }
 ScanningProcess.prototype.start = function () {
-    if (!(this.stage in this.actions)) return false;
-    let action = this.actions[this.stage];
+    let stage = this.stage;
+    if (typeof this.stage === 'number') {
+        stage = this.schedule[stage];
+    }
+    if (!(stage in this.actions)) return false;
+    let action = this.actions[stage];
     let duration = action.duration ?? this.defaults.duration ?? 100;
     let onerrors = action.onerrors ?? this.defaults.onerrors;
     let und = action.und ?? this.defaults.und;
+    let following = action.following;
     this.runner = setInterval(() => {
         let next;
         try {
@@ -40,12 +45,16 @@ ScanningProcess.prototype.start = function () {
         if (typeof next === 'undefined') {
             next = und;
         }
-        if (next) {
+        if (next || next === 0) {
             this.stop();
-            if (typeof next === 'string') {
-                this.stage = next;
+            if (next === true) {
+                if (typeof this.stage === 'number') {
+                    this.stage += 1;
+                } else if (typeof this.stage === 'string') {
+                    this.stage = following;
+                }
             } else {
-                this.stage += 1;
+                this.stage = next;
             }
             this.start();
         }
