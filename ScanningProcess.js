@@ -1,6 +1,6 @@
 /**
  * ScanningProcess
- * @version 2.0.0
+ * @version 2.1.0
  * @param {[string]} schedule Names of actions to execute in order.
  * @param {{object|function}} actions Actions to execute when the ScanningProcess `start()`.
  * @param {object} defaults Option values to use as default.
